@@ -34,10 +34,11 @@ const productSchema = mongoose.Schema({
     category: {
         type: mongoose.Schema.Types.ObjectId,
         ref: Category,
+        required: true
     },
     countInStock: {
         type: Number,
-        required: true,
+        // required: true,
         min: 0,
         max: 255
     },

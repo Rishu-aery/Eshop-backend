@@ -7,11 +7,7 @@ const cors = require("cors");
 const productRoute = require("./routes/productRoute.js");
 const userRoute = require("./routes/userRoute.js");
 const orderRoute = require("./routes/orderRoute.js");
-const categoryRoute = require("./routes/productRoute.js");
-
-app.use(cors());
-app.options("*", cors());
-
+const categoryRoute = require("./routes/categoryRoute.js");
 
 dotenv.config();
 const app = express();
@@ -19,11 +15,14 @@ const app = express();
 // Load environment variables
 const port = process.env.PORT ? process.env.PORT : 3000;
 const apiPrefix = process.env.API_URL;
+console.log("api url-----------", apiPrefix);
 
 
 // Middleware
 app.use(express.json());
 app.use(morgan("tiny"));
+// app.use(cors());
+// app.options("*", cors());
 
 // Routes
 app.use(`${apiPrefix}/products`, productRoute);
