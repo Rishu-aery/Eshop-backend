@@ -15,8 +15,6 @@ const app = express();
 // Load environment variables
 const port = process.env.PORT ? process.env.PORT : 3000;
 const apiPrefix = process.env.API_URL;
-console.log("api url-----------", apiPrefix);
-
 
 // Middleware
 app.use(express.json());
@@ -42,5 +40,5 @@ mongoose.connect(process.env.CONNECTION_URL, {
 });
 
 app.listen(port, () => {
-    console.log(`Server running at http://localhost${port}${apiPrefix}`);
+    console.log(`Server running at http://localhost:${port}${apiPrefix}`);
 });
