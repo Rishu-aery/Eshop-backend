@@ -15,6 +15,20 @@ router.get(`/`, async (req, res) => {
     res.send(productList);
 });
 
+router.get(`/:id`, async (req, res) => {
+  const { id } = req.params;
+
+  const product = await Product.findById(id);
+
+  if (!product) {
+    return res.status(500).json({
+      success: false,
+      message: "Product Not Found!"
+    });
+  }
+  res.send(product);
+});
+
 router.post("/", async (req, res) => {
   try {
     const body = req.body;
