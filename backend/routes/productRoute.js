@@ -5,7 +5,6 @@ const { Product } = require("../models/productModel.js");
 
 router.get(`/`, async (req, res) => {
 
-    console.log("Product------------", Product);
     const productList = await Product.find();
 
     if (!productList) {
@@ -16,21 +15,27 @@ router.get(`/`, async (req, res) => {
     res.send(productList);
 });
 
-router.post(`/`, (req, res) => {
-    const product = new Product({
-        name: req.body.name,
-        image: req.body.image,
-        countInStock: req.body.countInStock
+router.post("/", async (req, res) => {
+  try {
+    const body = req.body;
+    console.log("body---------", body);
+    const product = await Product.create(body);
+
+    if (!product) {
+      throw new Error("Error Creating product!");
+    }
+
+    res.status(200).json({
+      success: true,
+      data: product
     });
 
-    product.save().then((insertedProduct) => {
-        res.status(200).json(insertedProduct);
-    }).catch((err) => {
-        res.status(500).json({
-            error: err,
-            success: false
-        });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message
     });
+  }
 });
 
 module.exports = router;
